@@ -1,0 +1,39 @@
+{
+    "name": "hiero-v3-remote-signer-poc",
+    "version": "0.0.0",
+    "private": true,
+    "description": "Proof of concept: a thin facade with the shape of the Hiero SDK V3 signing API, running on the V2 JavaScript SDK, with AWS KMS and HashiCorp Vault signers implemented against it.",
+    "license": "Apache-2.0",
+    "type": "module",
+    "engines": {
+        "node": ">=20"
+    },
+    "scripts": {
+        "typecheck": "tsc --noEmit -p tsconfig.json",
+        "test": "tsc --noEmit -p tsconfig.json && vitest run",
+        "test:watch": "vitest",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "vault:up": "docker compose up -d vault && sh scripts/vault-dev-setup.sh",
+        "vault:down": "docker compose down",
+        "example:vault-local": "tsx examples/vault-local.ts",
+        "example:setup": "tsx --env-file=.env examples/setup-accounts.ts",
+        "example:operator": "tsx --env-file=.env examples/operator-kms.ts",
+        "example:multi-party": "tsx --env-file=.env examples/multi-party-approval.ts",
+        "example:out-of-process": "tsx --env-file=.env examples/out-of-process.ts"
+    },
+    "dependencies": {
+        "@aws-sdk/client-kms": "^3.1153.0",
+        "@hiero-ledger/sdk": "^2.90.1",
+        "@noble/hashes": "^2.4.0"
+    },
+    "devDependencies": {
+        "@noble/curves": "^2.4.0",
+        "@types/node": "^26.6.5",
+        "aws-sdk-client-mock": "^4.1.0",
+        "prettier": "^3.9.9",
+        "tsx": "^4.23.15",
+        "typescript": "^7.0.2",
+        "vitest": "^5.0.5"
+    }
+}
